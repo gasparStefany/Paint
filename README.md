@@ -19,7 +19,7 @@ O projeto foi desenvolvido na linguagem Java. As seguintes bibliotecas foram uti
 - [AWT](https://pt.wikipedia.org/wiki/Abstract_Window_Toolkit) - API responsável por prover suporte à criação de janelas usando métodos nativos
 
 ## Algoritmos
-Os algoritmos foram utilizadas na implementação do projeto:
+Os algoritmos foram utilizados na implementação do projeto:
 - [DDA](https://en.wikipedia.org/wiki/Digital_differential_analyzer_(graphics_algorithm)) - DDAs são usados para rasterização de linhas, triângulos e polígonos
 - [Bresenham](https://pt.wikipedia.org/wiki/Algoritmo_de_Bresenham) - Algoritmo criado para o desenho de linhas e circunferências
 - [Cohen-Sutherland](https://en.wikipedia.org/wiki/Cohen%E2%80%93Sutherland_algorithm) - Um algoritmo de computação gráfica usado para recorte de linhas
