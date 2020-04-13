@@ -1,5 +1,5 @@
 <p>
-  <img src="https://github.com/gasparStefany/Paint/raw/master/icon.png" width="10% height="10%">
+  <img src="https://github.com/gasparStefany/Paint/raw/master/Assets/icon.png" width="10% height="10%">
 </p>
                                                                                                
 Códigos desenvolvidos para a máteria de Computação Gráfica do curso de Ciência da Computação da Pontifícia Católica de Minas Gerais. O objetivo da aplicação é ter um fluxo de funcionamento semelhante ao Microsoft Paint.
