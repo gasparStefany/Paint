@@ -73,6 +73,22 @@ public class Circunferencia extends Figura {
      */
     @Override
     public void desenharFiguraBresenham(BufferedImage g) {
-        
+        this.isCircunferencia = true;
+        double r = Math.sqrt(Math.pow((pontoFinal.x - pontoInicial.x),2) + Math.pow((pontoFinal.y - pontoInicial.y), 2));
+        double x = 0.0;
+        double y = r;
+        double p = 3 - 2 * r;
+
+        setPixels(x, y, pontoInicial.x, pontoInicial.y, g);
+
+        while( x < y){
+            if(p < 0) p+= 4 * x + 6;
+            else {
+                p += 4 * (x - y) + 10;
+                y--;
+            }
+            x++;
+            setPixels(x, y, pontoInicial.x, pontoInicial.y, g);
+        }
     }
 }
