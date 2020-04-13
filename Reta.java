@@ -66,7 +66,58 @@ public class Reta extends Figura{
      */
     @Override
     public void desenharFiguraBresenham(BufferedImage g) {
-        
+        int dX, dY, x, y, i, const1, const2, p, xIncr, yIncr;
+
+        dX = (int)Math.round(this.pontoFinal.x - this.pontoInicial.x);
+        dY = (int)Math.round(this.pontoFinal.y - this.pontoInicial.y);
+
+        if( dX >= 0)
+            xIncr = 1;
+        else{
+            xIncr = -1;
+            dX = dX * -1;
+        }
+        if(dY >= 0)
+            yIncr = 1;
+        else {
+            yIncr = -1;
+            dY = dY * -1;
+        }
+        x = (int)Math.round(pontoInicial.x);
+        y = (int)Math.round(pontoInicial.y);
+        colorirPonto(x, y, g);
+
+        if(dY < dX){
+            p = (2 * dY) - dX;
+            const1 = 2 * dY;
+            const2 = 2*(dY - dX);
+
+            for(i = 0; i < dX; i++){
+                x += xIncr;
+                if (p < 0)
+                    p += const1;
+                else{
+                    y += yIncr;
+                    p += const2;
+                }
+                colorirPonto(x, y, g);
+            }
+        }else{
+            p = (2 * dX) - dY;
+            const1 = 2 * dX;
+            const2 = 2 * (dX - dY);
+
+            for (i = 0; i < dY; i++){
+                y += yIncr;
+                if (p < 0)
+                    p += const1;
+                else{
+                    x += xIncr;
+                    p += const2;
+                }
+                colorirPonto(x, y, g);
+            }
+        }
     }
 
 
@@ -76,7 +127,19 @@ public class Reta extends Figura{
      */
     @Override
     public void rotacionarFigura(double grau) {
-        
+        if(!this.isCircunferencia){
+            Ponto pontoOriginal = this.pontoInicial.clone();
+            moverFigura(new Ponto(0, 0));
+            grau = Math.toRadians(grau);
+
+            Ponto novoPontoFinal = new Ponto(
+                    (this.pontoFinal.x*Math.cos(grau)) - (this.pontoFinal.y * Math.sin(grau)),
+                    (this.pontoFinal.x*Math.sin(grau)) + (this.pontoFinal.y * Math.cos(grau)));
+
+            this.pontoFinal = novoPontoFinal;
+
+            moverFigura(pontoOriginal);
+        }
     }
 
     /**
@@ -104,14 +167,46 @@ public class Reta extends Figura{
         }
     }
 
-
     /**
      * Metodo de espelhamento ou reflaxao de uma figura
      * @param opcode Qual o eixo de reflexao.
      */
     @Override
     public void espelharFigura(int opcode) {
-        
+        if(!this.isCircunferencia) {
+            if(opcode == 0) {//espelhamento eixo x
+                //Armazena posicao inicial da linha
+                Ponto pontoOriginal = this.pontoInicial.clone();
+
+                //aplica translacao para origem
+                this.moverFigura(new Ponto(0,0));
+
+                //x' = x
+                //y' = y * -1
+                Ponto novoPontoFinal = new Ponto(this.pontoFinal.x, (this.pontoFinal.y * -1));
+
+                this.pontoFinal = novoPontoFinal;
+
+                moverFigura(pontoOriginal);
+            }else if(opcode == 1) {
+                //Armazena posicao inicial da linha
+                Ponto pontoOriginal = this.pontoInicial.clone();
+
+                //aplica translacao para origem
+                this.moverFigura(new Ponto(0,0));
+
+                //x' = x
+                //y' = y * -1
+                Ponto novoPontoFinal = new Ponto((this.pontoFinal.x * -1), this.pontoFinal.y);
+
+                this.pontoFinal = novoPontoFinal;
+
+                moverFigura(pontoOriginal);
+            }else if(opcode == 2){
+                // como espelhar em relacao a origem e' igual a rotacao de 180 graus..
+                this.rotacionarFigura(180);
+            }
+        }
     }
 
     /**
@@ -190,6 +285,4 @@ public class Reta extends Figura{
         this.pontoInicial = new Ponto(this.pontoInicial.x + dX, this.pontoInicial.y + dY);
         this.pontoFinal = new Ponto(this.pontoFinal.x + dX, this.pontoFinal.y + dY);
     }
-
-
 }
