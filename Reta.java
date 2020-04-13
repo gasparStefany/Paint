@@ -36,6 +36,27 @@ public class Reta extends Figura{
     @Override
     public void desenharFiguraDDA(BufferedImage g) {
 
+        double dX = this.pontoFinal.x - this.pontoInicial.x;
+        double dY = this.pontoFinal.y - this.pontoInicial.y;
+        double x = this.pontoInicial.x;
+        double y = this.pontoInicial.y;
+        int passos;
+        // colore o ponto inicial
+        colorirPonto((int)Math.round(x), (int)Math.round(y), g);
+        if(Math.abs(dX) > Math.abs(dY))
+            passos = (int)Math.abs(dX);
+        else
+            passos = (int)Math.abs(dY);
+
+        double xIncr = dX/passos;
+        double yIncr = dY/passos;
+
+        for(;passos >= 0; passos--) {
+            x += xIncr;
+            y += yIncr;
+            colorirPonto((int)Math.round(x), (int)Math.round(y), g);
+        }
+
     }
 
 
