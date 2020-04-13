@@ -127,7 +127,7 @@ public class Reta extends Figura{
      */
     @Override
     public void rotacionarFigura(double grau) {
-        if(!this.isCircunferencia){
+        if(!this.isCircunferencia) {
             Ponto pontoOriginal = this.pontoInicial.clone();
             moverFigura(new Ponto(0, 0));
             grau = Math.toRadians(grau);

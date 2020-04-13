@@ -18,7 +18,7 @@ public class Paint extends JFrame {
      *  e' utilizado o GridBagLayout para organizar todos os Panels com os RadioButtons e os Labels
      */
     public Paint(){
-        super("Paint- ComputacaoGrafica - TP1");
+        super("Paint - ComputacaoGrafica(TP1)");
         //Configurando o Layout Principal
         GridBagLayout gridLayout = new GridBagLayout();
         setLayout(gridLayout);
@@ -45,9 +45,6 @@ public class Paint extends JFrame {
         JPanel fillPanel = new JPanel(new GridBagLayout());
         JPanel optionPanel = new JPanel(new GridBagLayout());
         JPanel aboutPanel = new JPanel(new GridBagLayout());
-        JLabel aboutJorgeAllan = new JLabel("Jorge Allan");
-        JLabel aboutJorgeLuiz = new JLabel("Jorge Luiz - 553273");
-        JLabel aboutStefany = new JLabel("Stefany Gaspar");
 
         //Buttons
         JRadioButton rDDA = new JRadioButton("DDA");
@@ -211,27 +208,6 @@ public class Paint extends JFrame {
 
         cGroup.gridy++;
         painelFerramentas.add(optionPanel, cGroup);
-
-        cItem.gridx = 0;
-        cItem.gridy = 0;
-        cItem.anchor = GridBagConstraints.NORTHWEST;
-        cItem.insets = new Insets(0,0,15,10);
-        aboutPanel.add(aboutJorgeAllan, cItem);
-        cItem.gridy++;
-
-        cItem.gridx = 0;
-        cItem.gridy = 0;
-        cItem.anchor = GridBagConstraints.NORTHWEST;
-        cItem.insets = new Insets(0,0,10,5);
-        aboutPanel.add(aboutJorgeLuiz, cItem);
-        cItem.gridy++;
-
-        cItem.gridx = 0;
-        cItem.gridy = 0;
-        cItem.anchor = GridBagConstraints.NORTHWEST;
-        cItem.insets = new Insets(0,0,5,0);
-        aboutPanel.add(aboutStefany, cItem);
-        cItem.gridy++;
 
         cGroup.gridy++;
         painelFerramentas.add(aboutPanel, cGroup);
