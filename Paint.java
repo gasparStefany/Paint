@@ -31,6 +31,7 @@ public class Paint extends JFrame {
 
         //Labels
         JLabel rLabel = new JLabel("Retas");
+        JLabel pLabel = new JLabel("Poligonos");
         JLabel cLabel = new JLabel("Circunferencia");
         JLabel tLabel = new JLabel("Transformações");
         JLabel clipLabel = new JLabel("Recorte");
@@ -38,6 +39,7 @@ public class Paint extends JFrame {
         JLabel optionLabel = new JLabel("Opções");
         //Panels
         JPanel rPanel = new JPanel(new GridBagLayout());
+        JPanel pPanel = new JPanel(new GridBagLayout());
         JPanel cPanel = new JPanel(new GridBagLayout());
         JPanel tPanel = new JPanel(new GridBagLayout());
         JPanel clipPanel = new JPanel(new GridBagLayout());
@@ -48,6 +50,7 @@ public class Paint extends JFrame {
         //Buttons
         JRadioButton rDDA = new JRadioButton("DDA");
         JRadioButton rBresenham = new JRadioButton("Bresenham");
+        JRadioButton pRetangulo = new JRadioButton("Retangulo");
         JRadioButton cBresenham = new JRadioButton("Bresenham(Circ.)");
         JRadioButton clipLiangBarsky = new JRadioButton("Liang-Barsky");
         JRadioButton clipCohenSutherLand = new JRadioButton("Cohen-Sutherland");
@@ -65,6 +68,7 @@ public class Paint extends JFrame {
         //Listeners
         rDDA.addActionListener(new ButtonListener());
         rBresenham.addActionListener(new ButtonListener());
+        pRetangulo.addActionListener(new ButtonListener());
         cBresenham.addActionListener(new ButtonListener());
         mover.addActionListener(new ButtonListener());
         rotacionar.addActionListener(new ButtonListener());
@@ -80,6 +84,7 @@ public class Paint extends JFrame {
         //Filling the button list
         buttons.add(rDDA);
         buttons.add(rBresenham);
+        buttons.add(pRetangulo);
         buttons.add(cBresenham);
         buttons.add(mover);
         buttons.add(rotacionar);
@@ -93,6 +98,7 @@ public class Paint extends JFrame {
 
 
         // Configurando Painel de Ferramentas
+        //Insets(top, left, bottom, right)
         // Panel de Retas
         cItem.gridx = 0;
         cItem.gridy = 0;
@@ -116,6 +122,21 @@ public class Paint extends JFrame {
         cGroup.insets = new Insets(10,10,10,10);
         painelFerramentas.add(rPanel, cGroup);
 
+        // Panel de Poligono
+        cItem.gridx = 0;
+        cItem.gridy = 0;
+        cItem.anchor = GridBagConstraints.NORTHWEST;
+        cItem.insets = new Insets(0,0,10,5);
+        pPanel.add(pLabel, cItem);
+        
+        cItem.gridy++;
+        cItem.insets = new Insets(0, 0 ,0, 0);
+        pPanel.add(pRetangulo, cItem);
+        
+        cGroup.gridy++;
+        painelFerramentas.add(pPanel, cGroup);
+
+        // Panel de Circunferencia
         cItem.gridx = 0;
         cItem.gridy = 0;
         cItem.anchor = GridBagConstraints.NORTHWEST;
@@ -244,6 +265,7 @@ public class Paint extends JFrame {
         // Constantes para testes durante a execucao do programa
         private static final int RETA = 0;
         private static final int CIRCUNFERENCIA = 1;
+        private static final int RETANGULO = 2;
         private static final int MOVER = 1;
         private static final int ROTACIONAR = 2;
         private static final int REDIMENCIONAR = 3;
@@ -261,7 +283,7 @@ public class Paint extends JFrame {
         ArrayList<Figura> figuras = new ArrayList<>();
         //Qual figura deve ser realizado a operacao
         private int index;
-        BufferedImage img = new BufferedImage(1280, 720, BufferedImage.TYPE_INT_RGB);
+        BufferedImage img = new BufferedImage(1600, 720, BufferedImage.TYPE_INT_RGB);
         Graphics2D teste = null;
 
         /**
@@ -343,6 +365,8 @@ public class Paint extends JFrame {
                         for(Figura f : figuras)
                             if(f.isCircunferencia)
                                 f.desenharFiguraBresenham(img);
+                            else if(f.isRetangulo)
+                                f.desenharFiguraBresenham(img);
                             else
                                 f.desenharFiguraDDA(img);
                     }
@@ -353,12 +377,15 @@ public class Paint extends JFrame {
 
         /**
          * Metodo a ser chamado por classes superiores para inserir nova figura
-         * @param key - RETA - 0, CIRCUNFERENCIA - 1
+         * @param key - RETA - 0, CIRCUNFERENCIA - 1, RETANGULO - 2
          * @param algorithm DDA - 0, BRESENHAM - 1
          */
         public void desenharFigura(int key, int algorithm){
                 if(key == CIRCUNFERENCIA){
                     this.figura = new Circunferencia();
+                    this.isDefaultAlgorithm = true;
+                }else if(key == RETANGULO){
+                    this.figura = new Retangulo();
                     this.isDefaultAlgorithm = true;
                 }else if(algorithm == 0){
                     this.figura = new Reta();
@@ -398,10 +425,14 @@ public class Paint extends JFrame {
                         figura.pontoFinal = pontoFinal;
                     }
                     figuras.add(figura);
-                    if(!figura.isCircunferencia)
-                        figura = new Reta();
-                    else
+                    if(figura.isCircunferencia)
                         figura = new Circunferencia();
+                    else if(figura.isRetangulo)
+                        figura = new Retangulo();
+                    else
+                        figura = new Reta();
+                        
+
                     pontoFinal = pontoInicial = null;
                     updatePaint();
                 }
@@ -608,6 +639,10 @@ public class Paint extends JFrame {
                         limparSelecionados(buttons.indexOf(e.getSource()));
                         drawingPanel.desenharFigura(0, 1);
                     break;
+                case "Retangulo":
+                    limparSelecionados(buttons.indexOf(e.getSource()));
+                    //TODO: drawingPanel.desenharFigura(0, 1);
+                break;
                 case "Bresenham(Circ.)":
                         limparSelecionados(buttons.indexOf(e.getSource()));
                         drawingPanel.desenharFigura(1, 1);

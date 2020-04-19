@@ -8,6 +8,7 @@ public abstract class Figura {
     public Color cor;
     public boolean isCircunferencia;
     public boolean isDentroJanela;
+    public boolean isRetangulo;
     double u1, u2;
 
     public Figura(double xInicial, double yInicial, double xFinal, double yFinal, Color cor) {
@@ -15,6 +16,7 @@ public abstract class Figura {
         this.pontoFinal = new Ponto( xFinal, yFinal);
         this.cor = cor;
         this.isCircunferencia = false;
+        this.isRetangulo = false;
         this.isDentroJanela = true;
     }
     public Figura(){
@@ -22,6 +24,7 @@ public abstract class Figura {
         this.pontoInicial = null;
         this.cor = Color.black;
         this.isDentroJanela = true;
+        this.isRetangulo = false;
         this.isCircunferencia = false;}
 
     public Figura(boolean isCircunferencia){
@@ -29,8 +32,18 @@ public abstract class Figura {
         this.pontoInicial = null;
         this.cor = Color.black;
         this.isDentroJanela = true;
+        this.isRetangulo = false;
         this.isCircunferencia = isCircunferencia;
     }
+
+    // public Figura(boolean isRetangulo){
+    //     this.pontoFinal = null;
+    //     this.pontoInicial = null;
+    //     this.cor = Color.black;
+    //     this.isDentroJanela = true;
+    //     this.isRetangulo = isRetangulo;
+    //     this.isCircunferencia = false;
+    // }
 
     public void colorirPonto (int x, int y, BufferedImage g){
         g.setRGB(x,y,this.cor.getRGB());
