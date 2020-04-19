@@ -35,7 +35,6 @@ public class Reta extends Figura{
      */
     @Override
     public void desenharFiguraDDA(BufferedImage g) {
-
         double dX = this.pontoFinal.x - this.pontoInicial.x;
         double dY = this.pontoFinal.y - this.pontoInicial.y;
         double x = this.pontoInicial.x;
@@ -56,7 +55,6 @@ public class Reta extends Figura{
             y += yIncr;
             colorirPonto((int)Math.round(x), (int)Math.round(y), g);
         }
-
     }
 
 
@@ -127,7 +125,7 @@ public class Reta extends Figura{
      */
     @Override
     public void rotacionarFigura(double grau) {
-        if(!this.isCircunferencia) {
+        if(!this.isCircunferencia){
             Ponto pontoOriginal = this.pontoInicial.clone();
             moverFigura(new Ponto(0, 0));
             grau = Math.toRadians(grau);
@@ -140,6 +138,7 @@ public class Reta extends Figura{
 
             moverFigura(pontoOriginal);
         }
+
     }
 
     /**
@@ -167,14 +166,15 @@ public class Reta extends Figura{
         }
     }
 
+
     /**
      * Metodo de espelhamento ou reflaxao de uma figura
      * @param opcode Qual o eixo de reflexao.
      */
     @Override
     public void espelharFigura(int opcode) {
-        if(!this.isCircunferencia) {
-            if(opcode == 0) {//espelhamento eixo x
+        if(!this.isCircunferencia){
+            if(opcode == 0){//espelhamento eixo x
                 //Armazena posicao inicial da linha
                 Ponto pontoOriginal = this.pontoInicial.clone();
 
@@ -188,7 +188,7 @@ public class Reta extends Figura{
                 this.pontoFinal = novoPontoFinal;
 
                 moverFigura(pontoOriginal);
-            }else if(opcode == 1) {
+            }else if(opcode == 1){
                 //Armazena posicao inicial da linha
                 Ponto pontoOriginal = this.pontoInicial.clone();
 
@@ -285,4 +285,6 @@ public class Reta extends Figura{
         this.pontoInicial = new Ponto(this.pontoInicial.x + dX, this.pontoInicial.y + dY);
         this.pontoFinal = new Ponto(this.pontoFinal.x + dX, this.pontoFinal.y + dY);
     }
+
+
 }

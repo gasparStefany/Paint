@@ -14,28 +14,29 @@ public class Circunferencia extends Figura {
     @Override
     public void desenharFiguraDDA(BufferedImage g) {}
 
-    /*Metodos nao implementados para circunferencia*/
+    /**
+     * Implementacao do algoritmo de Bresenham para desenho de uma circunferencia
+     * @param g BufferedImage
+     */
     @Override
-    public void rotacionarFigura(double grau) { }
+    public void desenharFiguraBresenham(BufferedImage g) {
+        this.isCircunferencia = true;
+        double r = Math.sqrt(Math.pow((pontoFinal.x - pontoInicial.x),2) + Math.pow((pontoFinal.y - pontoInicial.y), 2));
+        double x = 0.0;
+        double y = r;
+        double p = 3 - 2 * r;
 
-    @Override
-    public void mudarEscalaFigura(double escalaX, double escalaY) {
+        setPixels(x, y, pontoInicial.x, pontoInicial.y, g);
 
-    }
-
-    @Override
-    public void moverFigura(Ponto novoPonto) {
-
-    }
-
-    @Override
-    public void espelharFigura(int opcode) {
-
-    }
-
-    @Override
-    public void shearFigura(double fatorX, int opcode) {
-
+        while( x < y){
+            if(p < 0) p+= 4 * x + 6;
+            else {
+                p += 4 * (x - y) + 10;
+                y--;
+            }
+            x++;
+            setPixels(x, y, pontoInicial.x, pontoInicial.y, g);
+        }
     }
 
     /**
@@ -67,28 +68,29 @@ public class Circunferencia extends Figura {
         colorirPonto(sx4, sy4, g);
     }
 
-    /**
-     * Implementacao do algoritmo de Bresenham para desenho de uma circunferencia
-     * @param g BufferedImage
-     */
+
+
+    /*Metodos nao implementados para circunferencia*/
     @Override
-    public void desenharFiguraBresenham(BufferedImage g) {
-        this.isCircunferencia = true;
-        double r = Math.sqrt(Math.pow((pontoFinal.x - pontoInicial.x),2) + Math.pow((pontoFinal.y - pontoInicial.y), 2));
-        double x = 0.0;
-        double y = r;
-        double p = 3 - 2 * r;
+    public void rotacionarFigura(double grau) { }
 
-        setPixels(x, y, pontoInicial.x, pontoInicial.y, g);
+    @Override
+    public void mudarEscalaFigura(double escalaX, double escalaY) {
 
-        while( x < y){
-            if(p < 0) p+= 4 * x + 6;
-            else {
-                p += 4 * (x - y) + 10;
-                y--;
-            }
-            x++;
-            setPixels(x, y, pontoInicial.x, pontoInicial.y, g);
-        }
+    }
+
+    @Override
+    public void moverFigura(Ponto novoPonto) {
+
+    }
+
+    @Override
+    public void espelharFigura(int opcode) {
+
+    }
+
+    @Override
+    public void shearFigura(double fatorX, int opcode) {
+
     }
 }

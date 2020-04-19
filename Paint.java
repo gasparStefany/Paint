@@ -18,7 +18,7 @@ public class Paint extends JFrame {
      *  e' utilizado o GridBagLayout para organizar todos os Panels com os RadioButtons e os Labels
      */
     public Paint(){
-        super("Paint - ComputacaoGrafica(TP1)");
+        super("Paint - ComputacaoGrafica - TP1");
         //Configurando o Layout Principal
         GridBagLayout gridLayout = new GridBagLayout();
         setLayout(gridLayout);
@@ -36,7 +36,6 @@ public class Paint extends JFrame {
         JLabel clipLabel = new JLabel("Recorte");
         JLabel fillLabel = new JLabel("Preenchimento");
         JLabel optionLabel = new JLabel("Opções");
-
         //Panels
         JPanel rPanel = new JPanel(new GridBagLayout());
         JPanel cPanel = new JPanel(new GridBagLayout());
@@ -211,13 +210,6 @@ public class Paint extends JFrame {
 
         cGroup.gridy++;
         painelFerramentas.add(aboutPanel, cGroup);
-
-
-//        cGroup.gridy++;
-//        cGroup.weightx = cGroup.weighty = 1.0;
-//        cGroup.insets = new Insets(0,0,0,0);
-//        cGroup.fill = GridBagConstraints.BOTH;
-//        painelFerramentas.add(new JPanel(new GridBagLayout()), cGroup);
 
         painelFerramentas.validate();
 
